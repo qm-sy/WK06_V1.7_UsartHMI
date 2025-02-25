@@ -1,0 +1,148 @@
+C51 COMPILER V9.60.7.0   POWER_CRL                                                         02/25/2025 10:35:43 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE POWER_CRL
+OBJECT MODULE PLACED IN ..\Output\hex\power_crl.obj
+COMPILER INVOKED BY: D:\APP\Keil_v5\C51\BIN\C51.EXE ..\BSP\Src\power_crl.c LARGE OPTIMIZE(8,SPEED) BROWSE INCDIR(..\BSP\
+                    -Inc;..\Core\Inc;..\Drivers;..\Emembed\Inc;..\Middlewares;..\SYSTEM\Inc) DEBUG OBJECTEXTEND PRINT(.\Listings\power_crl.ls
+                    -t) OBJECT(..\Output\hex\power_crl.obj)
+
+line level    source
+
+   1          #include "power_crl.h"
+   2          
+   3          AC_220 ac_220;
+   4          
+   5          /**
+   6           * @brief       移相触发调用结构体初始化
+   7           *
+   8           * @param   
+   9           *
+  10           * @return  void
+  11          **/
+  12          void Power_Statu_Init( void )
+  13          {
+  14   1          ac_220.zero_flag  = 0;
+  15   1          ac_220.channel1_flag = 0;
+  16   1          ac_220.channel2_flag = 0;
+  17   1          ac_220.channel3_flag = 0;
+  18   1          AC_Out1 = AC_Out2 = AC_Out3 = 1;
+  19   1      }
+  20          
+  21          /**
+  22           * @brief       外部中断0中断处理函数
+  23           *
+  24           * @param   
+  25           *
+  26           * @return  void
+  27          **/
+  28          void INT0_ISR( void ) interrupt 0
+  29          {
+  30   1          /* 1, 检测到外部中断后，等待THL\TLI后触发TIM1中断       */
+  31   1          TL1 = ac_220.time_delay;                            
+  32   1              TH1 = ac_220.time_delay >> 8;                           
+  33   1      
+  34   1          ac_220.zero_flag = 1;
+  35   1      
+  36   1          /* 2, 定时器1开始计时，打开TIM1中断                     */
+  37   1          TR1 = 1;                                 
+  38   1          ET1 = 1; 
+  39   1      }
+  40          
+  41          /**
+  42           * @brief       Timer1中断处理函数
+  43           *
+  44           * @param   
+  45           *
+  46           * @return  void
+  47          **/
+  48          void Tim1_ISR( void ) interrupt 3   //1ms
+  49          {
+  50   1          /* 1, 中断触发后，power_ch电平 由高电平变为低电平           */
+  51   1          if( ac_220.zero_flag == 1 )
+  52   1          {
+  53   2              ac_220.zero_flag = 0;
+C51 COMPILER V9.60.7.0   POWER_CRL                                                         02/25/2025 10:35:43 PAGE 2   
+
+  54   2              if(ac_220.channel1_flag == 1)
+  55   2              {
+  56   3                  AC_Out1 = 0;
+  57   3              }
+  58   2              if(ac_220.channel2_flag == 1)
+  59   2              {
+  60   3                  AC_Out2 = 0;
+  61   3              }
+  62   2              if(ac_220.channel3_flag == 1)
+  63   2              {
+  64   3                  AC_Out3 = 0;
+  65   3              }
+  66   2      
+  67   2               /* 2, 设置下一次Timer1中断触发所需时间，即脉冲时间       */
+  68   2              TL1 = 0xF7;                             
+  69   2              TH1 = 0xFF;                             
+  70   2          }else
+  71   1          {
+  72   2              /* 3, 下一次进入Timer1中断，power_ch电平 由低电平变为高电平，完成一次10us�
+             -��冲，即斩波*/
+  73   2              AC_Out1 = AC_Out2 = AC_Out3 = 1;
+  74   2      
+  75   2              /* 4, 定时器1停止计时，关闭TIM1中断，等待下一次外部中断     */
+  76   2              TR1 = 0;                                    
+  77   2              ET1 = 0; 
+  78   2          }
+  79   1      }
+  80          
+  81          /**
+  82           * @brief       220V输出功率控制函数 
+  83           *
+  84           * @param   power_level：输出功率百分比  0%~100%
+  85           *
+  86           * @return  void
+  87          **/
+  88          void AC_220V_out( uint8_t power_level )
+  89          {
+  90   1          ac_220.time_delay = 58000 + 75*power_level;
+  91   1      }
+  92          
+  93          /**
+  94           * @brief       24V LED开关控制函数
+  95           *
+  96           * @param   on_off：0：关闭 1：开启
+  97           *
+  98           * @return  void
+  99          **/
+ 100          void DC_24V_out( uint8_t on_off_1,uint8_t on_off_2 )
+ 101          {
+ 102   1          if( on_off_1 == 1 )
+ 103   1          {
+ 104   2              DC_24V_1 = 0;
+ 105   2          }else
+ 106   1          {
+ 107   2              DC_24V_1 = 1;
+ 108   2          }
+ 109   1      
+ 110   1          if( on_off_2 == 1 )
+ 111   1          {
+ 112   2              DC_24V_2 = 0;
+ 113   2          }else
+ 114   1          {
+C51 COMPILER V9.60.7.0   POWER_CRL                                                         02/25/2025 10:35:43 PAGE 3   
+
+ 115   2              DC_24V_2 = 1;
+ 116   2          }
+ 117   1      }
+ 118          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    177    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =      6    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
