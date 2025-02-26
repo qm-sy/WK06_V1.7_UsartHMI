@@ -90,24 +90,17 @@ void AC_220V_out( uint8_t power_level )
     ac_220.time_delay = 58000 + 75*power_level;
 }
 
+
 /**
- * @brief	24V LED开关控制函数
+ * @brief	24V cir开关控制函数
  *
  * @param   on_off：0：关闭 1：开启
  *
  * @return  void
 **/
-void DC_24V_out( uint8_t on_off_1,uint8_t on_off_2 )
+void DC_24V_out1( uint8_t on_off )
 {
-    if( on_off_1 == 1 )
-    {
-        DC_24V_1 = 0;
-    }else
-    {
-        DC_24V_1 = 1;
-    }
-
-    if( on_off_2 == 1 )
+    if( on_off == 1 )
     {
         DC_24V_2 = 0;
     }else
@@ -116,3 +109,20 @@ void DC_24V_out( uint8_t on_off_1,uint8_t on_off_2 )
     }
 }
 
+/**
+ * @brief	24V cir开关控制函数
+ *
+ * @param   on_off：0：关闭 1：开启
+ *
+ * @return  void
+**/
+void DC_24V_out2( uint8_t on_off )
+{
+    if( on_off == 1 )
+    {
+        DC_24V_2 = 0;
+    }else
+    {
+        DC_24V_2 = 1;
+    }
+}

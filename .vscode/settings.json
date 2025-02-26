@@ -16,6 +16,8 @@
         "pwm.h": "c",
         "eeprom.h": "c",
         "delay.h": "c",
-        "intrins.h": "c"
+        "intrins.h": "c",
+        "STC8H.H": "cpp",
+        "pwm_crl.h": "c"
     }
 }

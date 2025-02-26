@@ -452,6 +452,11 @@
               <FileType>1</FileType>
               <FilePath>..\BSP\Src\serial_port.c</FilePath>
             </File>
+            <File>
+              <FileName>pwm_crl.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\BSP\Src\pwm_crl.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

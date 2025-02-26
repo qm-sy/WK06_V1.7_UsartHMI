@@ -47,7 +47,6 @@ void Uart4_ISR() interrupt 20
         }else
         {
             rs485.TX4_send_cnt = 0;
-            DR3 = 0;
         }
     }
     

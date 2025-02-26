@@ -79,7 +79,7 @@ void eeprom_data_init( void )
     led1_statu = 1 - eeprom.led_info & 0X01;
     led2_statu = 1 - ((eeprom.led_info >> 4) & 0X01);
 
-    DC_24V_out(led1_statu,led2_statu);
+    //DC_24V_out(led1_statu,led2_statu);
 
 
     /*    220V输出开关状态初始化    */

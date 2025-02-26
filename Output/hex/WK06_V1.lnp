@@ -10,6 +10,7 @@
 "..\Output\hex\ntc.obj",
 "..\Output\hex\power_crl.obj",
 "..\Output\hex\serial_port.obj",
+"..\Output\hex\pwm_crl.obj",
 "..\Output\hex\delay.obj",
 "..\Output\hex\modbus_rtu.obj" 
 TO "..\Output\hex\WK06_V1.7_UsartHMI" 

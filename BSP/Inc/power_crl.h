@@ -20,7 +20,8 @@ typedef struct
 extern AC_220 ac_220;
 
 void Power_Statu_Init( void );
-void DC_24V_out( uint8_t on_off_1,uint8_t on_off_2 );
+void DC_24V_out1( uint8_t on_off );
+void DC_24V_out2( uint8_t on_off );
 void AC_220V_out( uint8_t power_level );
 
 #endif

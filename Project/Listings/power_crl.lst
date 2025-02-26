@@ -1,11 +1,11 @@
-C51 COMPILER V9.60.7.0   POWER_CRL                                                         02/25/2025 10:35:43 PAGE 1   
+C51 COMPILER V9.60.7.0   POWER_CRL                                                         02/25/2025 21:23:37 PAGE 1   
 
 
 C51 COMPILER V9.60.7.0, COMPILATION OF MODULE POWER_CRL
 OBJECT MODULE PLACED IN ..\Output\hex\power_crl.obj
-COMPILER INVOKED BY: D:\APP\Keil_v5\C51\BIN\C51.EXE ..\BSP\Src\power_crl.c LARGE OPTIMIZE(8,SPEED) BROWSE INCDIR(..\BSP\
-                    -Inc;..\Core\Inc;..\Drivers;..\Emembed\Inc;..\Middlewares;..\SYSTEM\Inc) DEBUG OBJECTEXTEND PRINT(.\Listings\power_crl.ls
-                    -t) OBJECT(..\Output\hex\power_crl.obj)
+COMPILER INVOKED BY: D:\APP\Keil_STM32\C51\BIN\C51.EXE ..\BSP\Src\power_crl.c LARGE OPTIMIZE(8,SPEED) BROWSE INCDIR(..\B
+                    -SP\Inc;..\Core\Inc;..\Drivers;..\Emembed\Inc;..\Middlewares;..\SYSTEM\Inc) DEBUG OBJECTEXTEND PRINT(.\Listings\power_crl
+                    -.lst) OBJECT(..\Output\hex\power_crl.obj)
 
 line level    source
 
@@ -62,7 +62,7 @@ line level    source
   51   1          if( ac_220.zero_flag == 1 )
   52   1          {
   53   2              ac_220.zero_flag = 0;
-C51 COMPILER V9.60.7.0   POWER_CRL                                                         02/25/2025 10:35:43 PAGE 2   
+C51 COMPILER V9.60.7.0   POWER_CRL                                                         02/25/2025 21:23:37 PAGE 2   
 
   54   2              if(ac_220.channel1_flag == 1)
   55   2              {
@@ -104,34 +104,44 @@ line level    source
   90   1          ac_220.time_delay = 58000 + 75*power_level;
   91   1      }
   92          
-  93          /**
-  94           * @brief       24V LED开关控制函数
-  95           *
-  96           * @param   on_off：0：关闭 1：开启
-  97           *
-  98           * @return  void
-  99          **/
- 100          void DC_24V_out( uint8_t on_off_1,uint8_t on_off_2 )
- 101          {
- 102   1          if( on_off_1 == 1 )
- 103   1          {
- 104   2              DC_24V_1 = 0;
- 105   2          }else
- 106   1          {
- 107   2              DC_24V_1 = 1;
- 108   2          }
- 109   1      
- 110   1          if( on_off_2 == 1 )
- 111   1          {
- 112   2              DC_24V_2 = 0;
- 113   2          }else
- 114   1          {
-C51 COMPILER V9.60.7.0   POWER_CRL                                                         02/25/2025 10:35:43 PAGE 3   
+  93          
+  94          /**
+  95           * @brief       24V cir开关控制函数
+  96           *
+  97           * @param   on_off：0：关闭 1：开启
+  98           *
+  99           * @return  void
+ 100          **/
+ 101          void DC_24V_out1( uint8_t on_off )
+ 102          {
+ 103   1          if( on_off == 1 )
+ 104   1          {
+ 105   2              DC_24V_2 = 0;
+ 106   2          }else
+ 107   1          {
+ 108   2              DC_24V_2 = 1;
+ 109   2          }
+ 110   1      }
+ 111          
+ 112          /**
+ 113           * @brief       24V cir开关控制函数
+ 114           *
+C51 COMPILER V9.60.7.0   POWER_CRL                                                         02/25/2025 21:23:37 PAGE 3   
 
- 115   2              DC_24V_2 = 1;
- 116   2          }
- 117   1      }
- 118          
+ 115           * @param   on_off：0：关闭 1：开启
+ 116           *
+ 117           * @return  void
+ 118          **/
+ 119          void DC_24V_out2( uint8_t on_off )
+ 120          {
+ 121   1          if( on_off == 1 )
+ 122   1          {
+ 123   2              DC_24V_2 = 0;
+ 124   2          }else
+ 125   1          {
+ 126   2              DC_24V_2 = 1;
+ 127   2          }
+ 128   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE

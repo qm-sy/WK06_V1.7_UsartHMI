@@ -6,8 +6,9 @@
 #include "gpio.h"
 #include "power_crl.h"
 #include "eeprom_crl.h"
+#include "pwm_crl.h"
 
-#define MY_ADDR     0x35
+#define MY_ADDR     0x51
 
 typedef struct 
 {
