@@ -1,11 +1,11 @@
-C51 COMPILER V9.60.7.0   EEPROM_CRL                                                        02/25/2025 21:23:37 PAGE 1   
+C51 COMPILER V9.60.7.0   EEPROM_CRL                                                        02/26/2025 16:50:33 PAGE 1   
 
 
 C51 COMPILER V9.60.7.0, COMPILATION OF MODULE EEPROM_CRL
 OBJECT MODULE PLACED IN ..\Output\hex\eeprom_crl.obj
-COMPILER INVOKED BY: D:\APP\Keil_STM32\C51\BIN\C51.EXE ..\BSP\Src\eeprom_crl.c LARGE OPTIMIZE(8,SPEED) BROWSE INCDIR(..\
-                    -BSP\Inc;..\Core\Inc;..\Drivers;..\Emembed\Inc;..\Middlewares;..\SYSTEM\Inc) DEBUG OBJECTEXTEND PRINT(.\Listings\eeprom_c
-                    -rl.lst) OBJECT(..\Output\hex\eeprom_crl.obj)
+COMPILER INVOKED BY: D:\APP\Keil_v5\C51\BIN\C51.EXE ..\BSP\Src\eeprom_crl.c LARGE OPTIMIZE(8,SPEED) BROWSE INCDIR(..\BSP
+                    -\Inc;..\Core\Inc;..\Drivers;..\Emembed\Inc;..\Middlewares;..\SYSTEM\Inc) DEBUG OBJECTEXTEND PRINT(.\Listings\eeprom_crl.
+                    -lst) OBJECT(..\Output\hex\eeprom_crl.obj)
 
 line level    source
 
@@ -28,106 +28,133 @@ line level    source
   17   1          //printf("The value of eeprom_statu_flag is 0x%02x \r\n",(int)eeprom_statu_flag);
   18   1          if( eeprom_statu_flag == 0xFF)
   19   1          {
-  20   2              eeprom.pwm_info          = 0x33;          //011 011 11 pwm7、8默认开，3档风速
-  21   2              eeprom.led_info          = 0x11;          //0000000 1  led默认开
-  22   2              eeprom.ac220_info        = 0xA1;          //0110010 1  220V_CH4默认开，80%功率
-  23   2              eeprom.temp_alarm_value1 = 0x50;          //NTC1 alarm value 默认80℃
-  24   2              eeprom.temp_alarm_value2 = 0x50;          //NTC2 alarm value 默认80℃  
-  25   2              eeprom.temp_alarm_value3 = 0x50;          //NTC3 alarm value 默认80℃ 
-  26   2      
-  27   2              eeprom_data_record(); 
-  28   2          }
-  29   1          eeprom_data_init();    
-  30   1      }
-  31          
-  32          /**
-  33           * @brief       eeprom 数据写入
-  34           *
-  35           * @param   
-  36           *
-  37           * @return  void
-  38          **/
-  39          void eeprom_data_record( void )
-  40          {
-  41   1          ISP_Earse(0x0000);
-  42   1      
-  43   1          ISP_Write(PWM_ADDR_EEPROM,eeprom.pwm_info);
-  44   1          ISP_Write(LED_ADDR_EEPROM,eeprom.led_info);
-  45   1          ISP_Write(AC220_ADDR_EEPROM,eeprom.ac220_info);
-  46   1          ISP_Write(TEMP_ALARM1,eeprom.temp_alarm_value1);
-  47   1          ISP_Write(TEMP_ALARM2,eeprom.temp_alarm_value2);
-  48   1          ISP_Write(TEMP_ALARM3,eeprom.temp_alarm_value3);
+  20   2      
+  21   2              dc_24v.fan_level          = 3;
+  22   2              eeprom.led_info          = 0;
+  23   2              eeprom.stir_info         = 0;
+  24   2              eeprom.cir_info          = 0;  
+  25   2              dc_24v.stir_run_time     = 10; 
+  26   2              dc_24v.stir_wait_time    = 10; 
+  27   2              dc_24v.cir_run_time      = 10;
+  28   2              dc_24v.cir_wait_time     = 10;
+  29   2              level.level_info         = 60;
+  30   2              temp.temp_alarm_value1   = 90;        
+  31   2              temp.temp_alarm_value2   = 90;       
+  32   2              temp.temp_alarm_value3   = 90;
+  33   2      
+  34   2              eeprom_data_record(); 
+  35   2          }
+  36   1          eeprom_data_init();    
+  37   1      }
+  38          
+  39          /**
+  40           * @brief       eeprom 数据写入
+  41           *
+  42           * @param   
+  43           *
+  44           * @return  void
+  45          **/
+  46          void eeprom_data_record( void )
+  47          {
+  48   1          ISP_Earse(0x0000);
   49   1      
-  50   1          ISP_Write(EEPROM_STATU_JUDGE,0x58);
-  51   1      
-  52   1          // printf("The value of 0 is : 0x%02x \r\n",(int)eeprom.pwm_info);
-  53   1          // printf("The value of 1 is : 0x%02x \r\n",(int)eeprom.led_info);
-C51 COMPILER V9.60.7.0   EEPROM_CRL                                                        02/25/2025 21:23:37 PAGE 2   
+  50   1          eeprom.pwm_info = dc_24v.fan_level;
+  51   1          ISP_Write(PWM_ADDR_EEPROM,eeprom.pwm_info);
+  52   1      
+  53   1      
+C51 COMPILER V9.60.7.0   EEPROM_CRL                                                        02/26/2025 16:50:33 PAGE 2   
 
-  54   1          // printf("The value of 2 is : 0x%02x \r\n",(int)eeprom.ac220_info);
-  55   1          // printf("The value of 3 is : 0x%02x \r\n",(int)eeprom.temp_alarm_value1);
-  56   1          // printf("The value of 4 is : 0x%02x \r\n",(int)eeprom.temp_alarm_value2);
-  57   1          // printf("The value of 5 is : 0x%02x \r\n",(int)eeprom.temp_alarm_value3);
-  58   1      }
-  59          
-  60          /**
-  61           * @brief       eeprom 数据初始化
-  62           *
-  63           * @param   
-  64           *
-  65           * @return  void
-  66          **/
-  67          void eeprom_data_init( void )
-  68          {
-  69   1          uint8_t led1_statu;
-  70   1          uint8_t led2_statu;
-  71   1          /*    PWM7、PWM8 风速及开关状态初始化    */
-  72   1          eeprom.pwm_info = ISP_Read(PWM_ADDR_EEPROM);
-  73   1          PWMB_CCR7 = eeprom.pwm_info*184;
-  74   1          PWMB_CCR8 = eeprom.pwm_info*184;
-  75   1          
-  76   1      
-  77   1          /*    LED开关状态初始化    */
-  78   1          eeprom.led_info = ISP_Read(LED_ADDR_EEPROM);
-  79   1          led1_statu = 1 - eeprom.led_info & 0X01;
-  80   1          led2_statu = 1 - ((eeprom.led_info >> 4) & 0X01);
-  81   1      
-  82   1          //DC_24V_out(led1_statu,led2_statu);
-  83   1      
-  84   1      
-  85   1          /*    220V输出开关状态初始化    */
-  86   1          eeprom.ac220_info = ISP_Read(AC220_ADDR_EEPROM);
-  87   1          if( eeprom.ac220_info & 0X01 )
-  88   1          {
-  89   2              EX0 = 1;
-  90   2          }else
-  91   1          {
-  92   2              EX0 = 0;
-  93   2          }
-  94   1          AC_220V_out(eeprom.ac220_info>>1);
-  95   1      
-  96   1          /*    三路NTC alarm value初始化    */
-  97   1          eeprom.temp_alarm_value1 = ISP_Read(TEMP_ALARM1);
-  98   1          eeprom.temp_alarm_value2 = ISP_Read(TEMP_ALARM2);
-  99   1          eeprom.temp_alarm_value3 = ISP_Read(TEMP_ALARM3);
- 100   1      
- 101   1          temp.temp_alarm_value1 = eeprom.temp_alarm_value1;
- 102   1          temp.temp_alarm_value2 = eeprom.temp_alarm_value2;
- 103   1          temp.temp_alarm_value3 = eeprom.temp_alarm_value3;
- 104   1      }
+  54   1          ISP_Write(LED_ADDR_EEPROM,eeprom.led_info);
+  55   1      
+  56   1          eeprom.stir_run_time = dc_24v.stir_run_time;
+  57   1          eeprom.stir_wait_time = dc_24v.stir_wait_time;
+  58   1          eeprom.cir_run_time = dc_24v.cir_run_time;
+  59   1          eeprom.cir_wait_time = dc_24v.cir_wait_time;
+  60   1          ISP_Write(STIR,eeprom.stir_info);
+  61   1          ISP_Write(STIR_RUN,eeprom.stir_run_time);
+  62   1          ISP_Write(STIR_WAIT,eeprom.stir_wait_time);
+  63   1          ISP_Write(CIR,eeprom.cir_run_time);
+  64   1          ISP_Write(CIR_RUN,eeprom.cir_run_time);
+  65   1          ISP_Write(CIR_WAIT,eeprom.cir_wait_time);
+  66   1          //ISP_Write(AC220_ADDR_EEPROM,eeprom.ac220_info);
+  67   1      
+  68   1          eeprom.level_delay_time = level.level_info;
+  69   1          ISP_Write(LEVEL_DELAY,eeprom.level_delay_time);
+  70   1      
+  71   1          eeprom.temp_alarm_value1 = temp.temp_alarm_value1;
+  72   1          eeprom.temp_alarm_value2 = temp.temp_alarm_value2;
+  73   1          eeprom.temp_alarm_value3 = temp.temp_alarm_value3;
+  74   1          ISP_Write(TEMP1_ALARM,eeprom.temp_alarm_value1);
+  75   1          ISP_Write(TEMP2_ALARM,eeprom.temp_alarm_value2);
+  76   1          ISP_Write(TEMP3_ALARM,eeprom.temp_alarm_value3);
+  77   1      
+  78   1          ISP_Write(EEPROM_STATU_JUDGE,0x58);
+  79   1      
+  80   1          printf("The value of stir_run_time is %d \r\n",(int)eeprom.stir_run_time);
+  81   1          printf("The value of stir_stop_time is %d \r\n",(int)eeprom.stir_wait_time);
+  82   1          printf("The value of cir_run_time is %d \r\n",(int)eeprom.cir_run_time);
+  83   1          printf("The value of cir_stop_time is %d \r\n",(int)eeprom.cir_wait_time);
+  84   1          printf("The value of temp_alarm_value1 is %d \r\n",(int)eeprom.temp_alarm_value1);
+  85   1          printf("The value of temp_alarm_value2 is %d \r\n",(int)eeprom.temp_alarm_value2);
+  86   1          printf("The value of temp_alarm_value3 is %d \r\n",(int)eeprom.temp_alarm_value3);
+  87   1          printf("The value of level_delay_time is %d \r\n",(int)eeprom.level_delay_time);
+  88   1      }
+  89          
+  90          /**
+  91           * @brief       eeprom 数据初始化
+  92           *
+  93           * @param   
+  94           *
+  95           * @return  void
+  96          **/  
+  97          void eeprom_data_init( void )
+  98          {
+  99   1          /*    PWM8 风速及开关状态初始化    */
+ 100   1          eeprom.pwm_info = ISP_Read(PWM_ADDR_EEPROM);
+ 101   1          pwm8_crl(eeprom.pwm_info);
+ 102   1          
+ 103   1      
+ 104   1          /*    LED开关状态初始化    */
+ 105   1          eeprom.led_info = ISP_Read(LED_ADDR_EEPROM);
+ 106   1          pwm7_crl(eeprom.led_info);
+ 107   1      
+ 108   1          //DC_24V_out(led1_statu,led2_statu);
+ 109   1          eeprom.stir_info = ISP_Read(STIR);
+ 110   1          DC_24V_out1(eeprom.stir_info);
+ 111   1      
+ 112   1          eeprom.stir_info = ISP_Read(CIR);
+ 113   1          DC_24V_out2(eeprom.cir_info);
+ 114   1      
+ 115   1          eeprom.stir_run_time = ISP_Read(STIR_RUN);
+C51 COMPILER V9.60.7.0   EEPROM_CRL                                                        02/26/2025 16:50:33 PAGE 3   
+
+ 116   1          dc_24v.stir_run_time = eeprom.stir_run_time;
+ 117   1          eeprom.stir_wait_time = ISP_Read(STIR_WAIT);
+ 118   1          dc_24v.stir_wait_time = eeprom.stir_wait_time;
+ 119   1      
+ 120   1          eeprom.cir_run_time = ISP_Read(CIR_RUN);
+ 121   1          dc_24v.cir_run_time = eeprom.cir_run_time;
+ 122   1          eeprom.cir_wait_time = ISP_Read(CIR_WAIT);
+ 123   1          dc_24v.cir_wait_time = eeprom.cir_wait_time;
+ 124   1      
+ 125   1          eeprom.temp_alarm_value1 = ISP_Read(TEMP1_ALARM);
+ 126   1          temp.temp_alarm_value1 = eeprom.temp_alarm_value1;
+ 127   1          eeprom.temp_alarm_value2 = ISP_Read(TEMP2_ALARM);
+ 128   1          temp.temp_alarm_value2 = eeprom.temp_alarm_value2;
+ 129   1          eeprom.temp_alarm_value3 = ISP_Read(TEMP3_ALARM);
+ 130   1          temp.temp_alarm_value3 = eeprom.temp_alarm_value3;
+ 131   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    280    ----
-   CONSTANT SIZE    =   ----    ----
-   XDATA SIZE       =      6       2
+   CODE SIZE        =    635    ----
+   CONSTANT SIZE    =    303    ----
+   XDATA SIZE       =     13    ----
    PDATA SIZE       =   ----    ----
    DATA SIZE        =   ----    ----
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----
 END OF MODULE INFORMATION.
-
-C51 COMPILER V9.60.7.0   EEPROM_CRL                                                        02/25/2025 21:23:37 PAGE 3   
 
 
 C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

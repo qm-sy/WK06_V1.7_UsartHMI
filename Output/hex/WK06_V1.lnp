@@ -11,7 +11,9 @@
 "..\Output\hex\power_crl.obj",
 "..\Output\hex\serial_port.obj",
 "..\Output\hex\pwm_crl.obj",
+"..\Output\hex\level_crl.obj",
 "..\Output\hex\delay.obj",
-"..\Output\hex\modbus_rtu.obj" 
+"..\Output\hex\modbus_rtu.obj",
+"..\Output\hex\common.obj" 
 TO "..\Output\hex\WK06_V1.7_UsartHMI" 
 PRINT(".\Listings\WK06_V1.m51") RAMSIZE(256) 

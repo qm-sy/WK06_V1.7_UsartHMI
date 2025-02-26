@@ -18,6 +18,12 @@
         "delay.h": "c",
         "intrins.h": "c",
         "STC8H.H": "cpp",
-        "pwm_crl.h": "c"
+        "pwm_crl.h": "c",
+        "stdio.h": "c",
+        "STDIO.H": "cpp",
+        "ntc.h": "c",
+        "eeprom_crl.h": "c",
+        "level_crl.h": "c",
+        "common.h": "c"
     }
 }

@@ -12,9 +12,9 @@ AC_220 ac_220;
 void Power_Statu_Init( void )
 {
     ac_220.zero_flag  = 0;
-    ac_220.channel1_flag = 0;
-    ac_220.channel2_flag = 0;
-    ac_220.channel3_flag = 0;
+    ac_220.channel1_flag = 1;
+    ac_220.channel2_flag = 1;
+    ac_220.channel3_flag = 1;
     AC_Out1 = AC_Out2 = AC_Out3 = 1;
 }
 
@@ -28,8 +28,8 @@ void Power_Statu_Init( void )
 void INT0_ISR( void ) interrupt 0
 {
     /* 1, 检测到外部中断后，等待THL\TLI后触发TIM1中断       */
-    TL1 = ac_220.time_delay;				
-	TH1 = ac_220.time_delay >> 8;				
+    TL1 = 65500;				
+	TH1 = 65500 >> 8;				
 
     ac_220.zero_flag = 1;
 
@@ -77,19 +77,6 @@ void Tim1_ISR( void ) interrupt 3   //1ms
         ET1 = 0; 
     }
 }
-
-/**
- * @brief	220V输出功率控制函数 
- *
- * @param   power_level：输出功率百分比  0%~100%
- *
- * @return  void
-**/
-void AC_220V_out( uint8_t power_level )
-{
-    ac_220.time_delay = 58000 + 75*power_level;
-}
-
 
 /**
  * @brief	24V cir开关控制函数

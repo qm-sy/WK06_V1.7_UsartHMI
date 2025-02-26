@@ -1,7 +1,7 @@
 /*
 	TIM0: 超时接收
 	TIM1: 加热
-	TIM2:
+	TIM2:串口1
 	TIM3:
 	TIM4:串口4
 */
@@ -55,24 +55,22 @@ void Timer1_Init( void )		//10ms@11.0592Mhz   16位手动重装载
 	TMOD |= 0x10;       		//设置定时器模式   手动/自动开关
 }
 
-// /**
-//  * @brief	Timer1初始化函数
-//  *
-//  * @param   
-//  *
-//  * @return  void
-// **/
-// void Timer2_Init( void )		//10毫秒@11.0592MHz
-// {
-// 	AUXR &= 0xFB;			//定时器时钟12T模式
-// 	T2L = 0x00;				//设置定时初始值
-// 	T2H = 0xDC;				//设置定时初始值
-// 	AUXR |= 0x10;			//定时器2开始计时
+/**
+ * @brief	Timer3初始化函数
+ *
+ * @param   
+ *
+ * @return  void
+**/
+void Timer3Init( void )		//10ms@11.0592Mhz   16位手动重装载
+{
+	T4T3M &= 0xFD;			//定时器时钟12T模式
 
-// 	IE2 |= 0X04;
-// }
+	T3L = 0x00;				//设置定时初始值
+	T3H = 0xDC;				//设置定时初始值
 
+	T4T3M |= 0x08;			//定时器3开始计时
 
-
-
+	IE2   |=  0X20;		//使能定时器3中断
+}
 

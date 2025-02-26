@@ -11,5 +11,6 @@
 #include "power_crl.h"
 #include "serial_port.h"
 #include "modbus_rtu.h"
+#include "common.h"
 
 #endif 

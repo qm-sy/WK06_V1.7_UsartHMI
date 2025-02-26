@@ -2,8 +2,6 @@
 
 RS485 rs485;
 
-volatile uint8_t TX1_busy_Flag = 0;
-
 /**
  * @brief	串口4调用结构体 rs485 初始化
  *
@@ -13,7 +11,6 @@ volatile uint8_t TX1_busy_Flag = 0;
 **/
 void Uart4_Send_Statu_Init( void )
 {
-    rs485.TX4_busy_Flag = 0;
     rs485.RX4_rcv_end_Flag = 0;
     rs485.TX4_buf[128] = 0;
     rs485.RX4_buf[128] = 0;
@@ -30,14 +27,13 @@ void Uart4_Send_Statu_Init( void )
  *
  * @return  void
 **/
-void Uart4_ISR() interrupt 20
+void Uart4_ISR() interrupt 18
 {   
     /* 1, 检测到硬件将S4TI置1，即发送完毕                       */
     if( S4CON & S4TI )          //
     {
         /* 2, 软件将S4TI清零，等待发送标志位重置，可继续发送    */
         S4CON &= ~S4TI;         
-        rs485.TX4_busy_Flag = 0;
         
         /* 3, 依次将TX4_buf中数据送出（写S4BUF操作即为发送）    */
         if( rs485.TX4_send_bytelength != 0 )
@@ -111,7 +107,6 @@ void Uart1_ISR() interrupt 4
     if (SCON & TI)                //在停止位开始发送时，该位置1
     {
         SCON &= ~TI;   			     //清除S4CON寄存器对应S4TI位（该位必须软件清零）
-        TX1_busy_Flag = 0;
     }
 
     if (SCON & RI)                //串行接收到停止位的中间时刻时，该位置1
@@ -130,8 +125,8 @@ void Uart1_ISR() interrupt 4
 char putchar(char c)  // 串口重定向需要添加头文件stdio.h
 {
     SBUF = c;
-    while(TX1_busy_Flag);
-    TX1_busy_Flag = 1;
+    while(!TI);
+    TI = 0;
     return c;
 }
 

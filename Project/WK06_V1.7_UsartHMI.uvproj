@@ -457,6 +457,11 @@
               <FileType>1</FileType>
               <FilePath>..\BSP\Src\pwm_crl.c</FilePath>
             </File>
+            <File>
+              <FileName>level_crl.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\BSP\Src\level_crl.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -476,6 +481,11 @@
               <FileName>modbus_rtu.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Emembed\Src\modbus_rtu.c</FilePath>
+            </File>
+            <File>
+              <FileName>common.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Emembed\Src\common.c</FilePath>
             </File>
           </Files>
         </Group>

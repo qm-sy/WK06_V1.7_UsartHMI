@@ -3,7 +3,7 @@
 void main( void )
 {
     P_SW2 |= 0x80;
-
+    level.level_scan_flag = 0;
     GPIO_Init();
 
     /*  温度控制  */
@@ -25,6 +25,8 @@ void main( void )
     /*  调试使用  */
     Uart1_Init();
 
+    Timer3Init();
+
     EA = 1;
 
     eeprom_statu_judge();
@@ -32,14 +34,8 @@ void main( void )
 
     while (1)
     { 
-        // temp.temp_value1 =  get_temp(NTC_1);
-        // temp.temp_value2 =  get_temp(NTC_2);
-        // temp.temp_value3 =  get_temp(NTC_3);
-        // printf(" The value of tmep1 is %d \r\n",(int)temp.temp_value1);
-        // printf(" The value of tmep2 is %d \r\n",(int)temp.temp_value2);
-        // printf(" The value of tmep3 is %d \r\n",(int)temp.temp_value3);
-        temp_scan();
         Modbus_Event();
+        temp_level_scan();
     }
     
 }

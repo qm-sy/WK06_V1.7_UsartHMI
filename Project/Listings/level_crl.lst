@@ -1,0 +1,28 @@
+C51 COMPILER V9.60.7.0   LEVEL_CRL                                                         02/26/2025 16:50:34 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE LEVEL_CRL
+OBJECT MODULE PLACED IN ..\Output\hex\level_crl.obj
+COMPILER INVOKED BY: D:\APP\Keil_v5\C51\BIN\C51.EXE ..\BSP\Src\level_crl.c LARGE OPTIMIZE(8,SPEED) BROWSE INCDIR(..\BSP\
+                    -Inc;..\Core\Inc;..\Drivers;..\Emembed\Inc;..\Middlewares;..\SYSTEM\Inc) DEBUG OBJECTEXTEND PRINT(.\Listings\level_crl.ls
+                    -t) OBJECT(..\Output\hex\level_crl.obj)
+
+line level    source
+
+   1          #include "level_crl.h"
+   2          
+   3          LEVEL level;
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   ----    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =      5    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -7,6 +7,7 @@
 #include "power_crl.h"
 #include "eeprom_crl.h"
 #include "pwm_crl.h"
+#include "level_crl.h"
 
 #define MY_ADDR     0x51
 
@@ -31,5 +32,7 @@ void Modbus_Fun16( void );
 void slave_to_master(uint8_t length);
 uint16_t MODBUS_CRC16(uint8_t *buf, uint8_t length);
 void slave_scan( void );
+void wk06_statu_send( void );
+void wk06_params_send( void );
 
 #endif

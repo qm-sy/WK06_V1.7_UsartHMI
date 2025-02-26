@@ -1,6 +1,6 @@
 #include "pwm_crl.h"
 
-PWM_CRL pwm_info;
+DC_24V dc_24v;
 
 void pwm7_crl( uint8_t on_off )
 {
