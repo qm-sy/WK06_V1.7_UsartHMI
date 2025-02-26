@@ -4,6 +4,8 @@ void main( void )
 {
     P_SW2 |= 0x80;
     level.level_scan_flag = 0;
+    dc_24v.stir = 0;
+    dc_24v.cir = 0;
     GPIO_Init();
 
     /*  温度控制  */

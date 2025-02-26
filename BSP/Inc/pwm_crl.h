@@ -11,10 +11,14 @@ typedef struct
     uint8_t  stir;
     uint8_t  stir_run_time;   
     uint8_t  stir_wait_time; 
+    uint16_t  stir_run_cnt;   
+    uint16_t  stir_wait_cnt; 
 
-    uint8_t  ctir;
+    uint8_t  cir;
     uint8_t  cir_run_time;  
     uint8_t  cir_wait_time;
+    uint16_t  cir_run_cnt;   
+    uint16_t  cir_wait_cnt; 
 
     uint8_t  led_switch;
 }DC_24V;

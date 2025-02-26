@@ -89,10 +89,13 @@ void DC_24V_out1( uint8_t on_off )
 {
     if( on_off == 1 )
     {
-        DC_24V_2 = 0;
+        DC_24V_1 = 0;
+        dc_24v.stir_run_cnt = dc_24v.stir_run_time * 100;
+        dc_24v.stir_wait_cnt = dc_24v.stir_wait_time * 100;
+        
     }else
     {
-        DC_24V_2 = 1;
+        DC_24V_1 = 1;
     }
 }
 
@@ -107,9 +110,11 @@ void DC_24V_out2( uint8_t on_off )
 {
     if( on_off == 1 )
     {
-        DC_24V_2 = 0;
+        DC_24V_2 = 1;
+        dc_24v.cir_run_cnt = dc_24v.cir_run_time * 100;
+        dc_24v.cir_wait_cnt = dc_24v.cir_wait_time * 100;
     }else
     {
-        DC_24V_2 = 1;
+        DC_24V_2 = 0;
     }
 }

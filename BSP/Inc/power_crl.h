@@ -3,6 +3,7 @@
 
 #include "sys.h"
 #include "gpio.h"
+#include "pwm_crl.h"
 
 #define DC_24V_ON    1
 #define DC_24V_OFF   0

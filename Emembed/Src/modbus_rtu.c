@@ -56,11 +56,13 @@ void Modbus_Event( void )
                     break; 
 
                 case 0xA4:  
-                    DC_24V_out1(rs485.RX4_buf[2]);
+                    dc_24v.stir = rs485.RX4_buf[2];
+                    DC_24V_out1(dc_24v.stir);
                     break; 
 
                 case 0xA5:  
-                    DC_24V_out2(rs485.RX4_buf[2]);
+                    dc_24v.cir = rs485.RX4_buf[2];
+                    DC_24V_out2(dc_24v.cir);
                     break; 
                     
                 case 0xA6:  
@@ -99,11 +101,25 @@ void wk06_statu_send( void )
     rs485.TX4_buf[3] = temp.temp_value2;
     rs485.TX4_buf[4] = temp.temp_value3;
 
-    rs485.TX4_buf[5] = level.level1234;
-    rs485.TX4_buf[6] = level.level5678;
-    rs485.TX4_buf[7] = level.level9101112;
-
-    rs485.TX4_send_bytelength = 5;
+    rs485.TX4_buf[5] = level.level1;
+    rs485.TX4_buf[6] = level.level2;
+    rs485.TX4_buf[7] = level.level3;
+    rs485.TX4_buf[8] = level.level4;
+    rs485.TX4_buf[9] = level.level5;
+    rs485.TX4_buf[10] = level.level6;
+    rs485.TX4_buf[11] = level.level7;
+    rs485.TX4_buf[12] = level.level8;
+    rs485.TX4_buf[13] = level.level9;
+    rs485.TX4_buf[14] = level.level10;
+    if ( IN_24V == 1 )
+    {
+        rs485.TX4_buf[15] = 0;
+    }else
+    {
+        rs485.TX4_buf[15] = 1;
+    }
+    
+    rs485.TX4_send_bytelength = 16;
     S4CON |= S4TI;             
 }
 

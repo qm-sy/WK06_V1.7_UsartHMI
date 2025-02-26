@@ -1,11 +1,11 @@
-C51 COMPILER V9.60.7.0   POWER_CRL                                                         02/26/2025 16:50:34 PAGE 1   
+C51 COMPILER V9.60.7.0   POWER_CRL                                                         02/26/2025 22:52:46 PAGE 1   
 
 
 C51 COMPILER V9.60.7.0, COMPILATION OF MODULE POWER_CRL
 OBJECT MODULE PLACED IN ..\Output\hex\power_crl.obj
-COMPILER INVOKED BY: D:\APP\Keil_v5\C51\BIN\C51.EXE ..\BSP\Src\power_crl.c LARGE OPTIMIZE(8,SPEED) BROWSE INCDIR(..\BSP\
-                    -Inc;..\Core\Inc;..\Drivers;..\Emembed\Inc;..\Middlewares;..\SYSTEM\Inc) DEBUG OBJECTEXTEND PRINT(.\Listings\power_crl.ls
-                    -t) OBJECT(..\Output\hex\power_crl.obj)
+COMPILER INVOKED BY: D:\APP\Keil_STM32\C51\BIN\C51.EXE ..\BSP\Src\power_crl.c LARGE OPTIMIZE(8,SPEED) BROWSE INCDIR(..\B
+                    -SP\Inc;..\Core\Inc;..\Drivers;..\Emembed\Inc;..\Middlewares;..\SYSTEM\Inc) DEBUG OBJECTEXTEND PRINT(.\Listings\power_crl
+                    -.lst) OBJECT(..\Output\hex\power_crl.obj)
 
 line level    source
 
@@ -62,7 +62,7 @@ line level    source
   51   1          if( ac_220.zero_flag == 1 )
   52   1          {
   53   2              ac_220.zero_flag = 0;
-C51 COMPILER V9.60.7.0   POWER_CRL                                                         02/26/2025 16:50:34 PAGE 2   
+C51 COMPILER V9.60.7.0   POWER_CRL                                                         02/26/2025 22:52:46 PAGE 2   
 
   54   2              if(ac_220.channel1_flag == 1)
   55   2              {
@@ -103,36 +103,41 @@ line level    source
   89          {
   90   1          if( on_off == 1 )
   91   1          {
-  92   2              DC_24V_2 = 0;
-  93   2          }else
-  94   1          {
-  95   2              DC_24V_2 = 1;
-  96   2          }
-  97   1      }
-  98          
-  99          /**
- 100           * @brief       24V cir开关控制函数
- 101           *
- 102           * @param   on_off：0：关闭 1：开启
- 103           *
- 104           * @return  void
- 105          **/
- 106          void DC_24V_out2( uint8_t on_off )
- 107          {
- 108   1          if( on_off == 1 )
- 109   1          {
- 110   2              DC_24V_2 = 0;
- 111   2          }else
+  92   2              DC_24V_1 = 0;
+  93   2              dc_24v.stir_run_cnt = dc_24v.stir_run_time * 100;
+  94   2              dc_24v.stir_wait_cnt = dc_24v.stir_wait_time * 100;
+  95   2              
+  96   2          }else
+  97   1          {
+  98   2              DC_24V_1 = 1;
+  99   2          }
+ 100   1      }
+ 101          
+ 102          /**
+ 103           * @brief       24V cir开关控制函数
+ 104           *
+ 105           * @param   on_off：0：关闭 1：开启
+ 106           *
+ 107           * @return  void
+ 108          **/
+ 109          void DC_24V_out2( uint8_t on_off )
+ 110          {
+ 111   1          if( on_off == 1 )
  112   1          {
  113   2              DC_24V_2 = 1;
- 114   2          }
-C51 COMPILER V9.60.7.0   POWER_CRL                                                         02/26/2025 16:50:34 PAGE 3   
+ 114   2              dc_24v.cir_run_cnt = dc_24v.cir_run_time * 100;
+C51 COMPILER V9.60.7.0   POWER_CRL                                                         02/26/2025 22:52:46 PAGE 3   
 
- 115   1      }
+ 115   2              dc_24v.cir_wait_cnt = dc_24v.cir_wait_time * 100;
+ 116   2          }else
+ 117   1          {
+ 118   2              DC_24V_2 = 0;
+ 119   2          }
+ 120   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    141    ----
+   CODE SIZE        =    213    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =      6    ----
    PDATA SIZE       =   ----    ----
