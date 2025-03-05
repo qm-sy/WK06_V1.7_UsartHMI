@@ -34,17 +34,14 @@ sbit DC_24V_2         = P2^7;
 
 sbit IN_24V           = P7^4;
 
-// sbit L1_H             = P6^5;
-// sbit L1_L             = P4^0;
-
-sbit L1_L             = P1^4;
-sbit L1_H             = P1^5;
+sbit L1_H             = P6^5;
+sbit L1_L             = P4^0;
 
 sbit L2_H             = P3^3;
 sbit L2_L             = P6^7;
 
 sbit L3_H             = P5^0;
-sbit L3_L             = P3^6;
+sbit L3_L             = P3^4;
 
 sbit L4_H             = P3^5;
 sbit L4_L             = P5^1;
@@ -67,11 +64,11 @@ sbit L9_L             = P1^0;
 sbit L10_H             = P1^7;
 sbit L10_L             = P6^3;
 
-sbit L11_H             = P1^3;
-sbit L11_L             = P6^2;
+// sbit L11_H             = P1^3;
+// sbit L11_L             = P6^2;
 
-sbit L12_H             = P5^4;
-sbit L12_L             = P6^1;
+// sbit L12_H             = P5^4;
+// sbit L12_L             = P6^1;
 
 void GPIO_Init( void );
     

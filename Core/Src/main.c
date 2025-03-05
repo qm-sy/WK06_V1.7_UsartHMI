@@ -6,6 +6,8 @@ void main( void )
     level.level_scan_flag = 0;
     dc_24v.stir = 0;
     dc_24v.cir = 0;
+    modbus.scan_allow_flag = 0;
+    level.buzzer_scan_flag = 1;
     GPIO_Init();
 
     /*  温度控制  */
@@ -37,7 +39,9 @@ void main( void )
     while (1)
     { 
         Modbus_Event();
-        temp_level_scan();
+        if( modbus.scan_allow_flag == 1 )
+        {
+            temp_level_scan();
+        }
     }
-    
 }

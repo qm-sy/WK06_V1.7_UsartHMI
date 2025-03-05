@@ -1,11 +1,11 @@
-C51 COMPILER V9.60.7.0   MODBUS_RTU                                                        02/26/2025 22:52:46 PAGE 1   
+C51 COMPILER V9.60.7.0   MODBUS_RTU                                                        02/27/2025 14:45:17 PAGE 1   
 
 
 C51 COMPILER V9.60.7.0, COMPILATION OF MODULE MODBUS_RTU
 OBJECT MODULE PLACED IN ..\Output\hex\modbus_rtu.obj
-COMPILER INVOKED BY: D:\APP\Keil_STM32\C51\BIN\C51.EXE ..\Emembed\Src\modbus_rtu.c LARGE OPTIMIZE(8,SPEED) BROWSE INCDIR
-                    -(..\BSP\Inc;..\Core\Inc;..\Drivers;..\Emembed\Inc;..\Middlewares;..\SYSTEM\Inc) DEBUG OBJECTEXTEND PRINT(.\Listings\modb
-                    -us_rtu.lst) OBJECT(..\Output\hex\modbus_rtu.obj)
+COMPILER INVOKED BY: D:\APP\Keil_v5\C51\BIN\C51.EXE ..\Emembed\Src\modbus_rtu.c LARGE OPTIMIZE(8,SPEED) BROWSE INCDIR(..
+                    -\BSP\Inc;..\Core\Inc;..\Drivers;..\Emembed\Inc;..\Middlewares;..\SYSTEM\Inc) DEBUG OBJECTEXTEND PRINT(.\Listings\modbus_
+                    -rtu.lst) OBJECT(..\Output\hex\modbus_rtu.obj)
 
 line level    source
 
@@ -46,124 +46,133 @@ line level    source
   35   4                          
   36   4                      case 0x16:
   37   4                          wk06_params_send();                                 //开始发送
-  38   4                          break;
-  39   4      
-  40   4                      case 0xA0:
-  41   4                          EX0 = rs485.RX4_buf[2];
-  42   4                          break;
-  43   4      
-  44   4                      case 0xA1:
-  45   4                          pwm7_crl(rs485.RX4_buf[2]);
-  46   4                          break;
-  47   4      
-  48   4                      case 0xA2:
-  49   4                          buzzer = rs485.RX4_buf[2];
-  50   4                          break;  
-  51   4      
-  52   4                      case 0xA3:  
-  53   4                          dc_24v.fan_level = rs485.RX4_buf[2];
-C51 COMPILER V9.60.7.0   MODBUS_RTU                                                        02/26/2025 22:52:46 PAGE 2   
+  38   4                          modbus.scan_allow_flag = 1;
+  39   4                          break;
+  40   4      
+  41   4                      case 0xA0:
+  42   4                          EX0 = rs485.RX4_buf[2];
+  43   4                          break;
+  44   4      
+  45   4                      case 0xA1:
+  46   4                          pwm7_crl(rs485.RX4_buf[2]);
+  47   4                          break;
+  48   4      
+  49   4                      case 0xA2:
+  50   4                          if(rs485.RX4_buf[2] == 0x01)
+  51   4                          { 
+  52   5                              level.buzzer_scan_flag = 1;
+  53   5                          }else
+C51 COMPILER V9.60.7.0   MODBUS_RTU                                                        02/27/2025 14:45:17 PAGE 2   
 
-  54   4                          pwm8_crl(dc_24v.fan_level);
-  55   4                          eeprom_data_record();
-  56   4                          break; 
-  57   4      
-  58   4                      case 0xA4:  
-  59   4                          dc_24v.stir = rs485.RX4_buf[2];
-  60   4                          DC_24V_out1(dc_24v.stir);
-  61   4                          break; 
-  62   4      
-  63   4                      case 0xA5:  
-  64   4                          dc_24v.cir = rs485.RX4_buf[2];
-  65   4                          DC_24V_out2(dc_24v.cir);
-  66   4                          break; 
-  67   4                          
-  68   4                      case 0xA6:  
-  69   4                          temp.temp_alarm_value1 = rs485.RX4_buf[2];
-  70   4                          temp.temp_alarm_value2 = rs485.RX4_buf[3];
-  71   4                          temp.temp_alarm_value3 = rs485.RX4_buf[4];
-  72   4                          eeprom_data_record();
-  73   4                          break; 
-  74   4      
-  75   4                      case 0xA7:  
-  76   4                          dc_24v.stir_run_time = rs485.RX4_buf[2];
-  77   4                          dc_24v.stir_wait_time = rs485.RX4_buf[3];
-  78   4                          dc_24v.cir_run_time = rs485.RX4_buf[4];
-  79   4                          dc_24v.cir_wait_time = rs485.RX4_buf[5];
-  80   4                          eeprom_data_record();
-  81   4                          break; 
-  82   4      
-  83   4                      case 0xA8:
-  84   4                          level.level_info = rs485.RX4_buf[2];
-  85   4                          eeprom_data_record();
-  86   4                          break; 
-  87   4      
-  88   4                      default:
-  89   4                          break;
-  90   4                  }
-  91   3              }
-  92   2          }
-  93   1      }
-  94          
-  95          void wk06_statu_send( void )
-  96          {
-  97   1          rs485.TX4_buf[0] = 0x51;
-  98   1          rs485.TX4_buf[1] = 0x17;
-  99   1      
- 100   1          rs485.TX4_buf[2] = temp.temp_value1;
- 101   1          rs485.TX4_buf[3] = temp.temp_value2;
- 102   1          rs485.TX4_buf[4] = temp.temp_value3;
- 103   1      
- 104   1          rs485.TX4_buf[5] = level.level1;
- 105   1          rs485.TX4_buf[6] = level.level2;
- 106   1          rs485.TX4_buf[7] = level.level3;
- 107   1          rs485.TX4_buf[8] = level.level4;
- 108   1          rs485.TX4_buf[9] = level.level5;
- 109   1          rs485.TX4_buf[10] = level.level6;
- 110   1          rs485.TX4_buf[11] = level.level7;
- 111   1          rs485.TX4_buf[12] = level.level8;
- 112   1          rs485.TX4_buf[13] = level.level9;
- 113   1          rs485.TX4_buf[14] = level.level10;
- 114   1          if ( IN_24V == 1 )
- 115   1          {
-C51 COMPILER V9.60.7.0   MODBUS_RTU                                                        02/26/2025 22:52:46 PAGE 3   
+  54   4                          {
+  55   5                              level.buzzer_scan_flag = 0;
+  56   5                              buzzer = 1;
+  57   5                          }
+  58   4                          
+  59   4                          break;  
+  60   4      
+  61   4                      case 0xA3:  
+  62   4                          dc_24v.fan_level = rs485.RX4_buf[2];
+  63   4                          pwm8_crl(dc_24v.fan_level);
+  64   4                          eeprom_data_record();
+  65   4                          break; 
+  66   4      
+  67   4                      case 0xA4:  
+  68   4                          dc_24v.stir = rs485.RX4_buf[2];
+  69   4                          DC_24V_out1(dc_24v.stir);
+  70   4                          break; 
+  71   4      
+  72   4                      case 0xA5:  
+  73   4                          dc_24v.cir = rs485.RX4_buf[2];
+  74   4                          DC_24V_out2(dc_24v.cir);
+  75   4                          break; 
+  76   4                          
+  77   4                      case 0xA6:  
+  78   4                          temp.temp_alarm_value1 = rs485.RX4_buf[2];
+  79   4                          temp.temp_alarm_value2 = rs485.RX4_buf[3];
+  80   4                          temp.temp_alarm_value3 = rs485.RX4_buf[4];
+  81   4                          eeprom_data_record();
+  82   4                          break; 
+  83   4      
+  84   4                      case 0xA7:  
+  85   4                          dc_24v.stir_run_time = rs485.RX4_buf[2];
+  86   4                          dc_24v.stir_wait_time = rs485.RX4_buf[3];
+  87   4                          dc_24v.cir_run_time = rs485.RX4_buf[4];
+  88   4                          dc_24v.cir_wait_time = rs485.RX4_buf[5];
+  89   4                          eeprom_data_record();
+  90   4                          break; 
+  91   4      
+  92   4                      case 0xA8:
+  93   4                          level.level_info = rs485.RX4_buf[2];
+  94   4                          eeprom_data_record();
+  95   4                          break; 
+  96   4      
+  97   4                      default:
+  98   4                          break;
+  99   4                  }
+ 100   3              }
+ 101   2          }
+ 102   1      }
+ 103          
+ 104          void wk06_statu_send( void )
+ 105          {
+ 106   1          rs485.TX4_buf[0] = 0x51;
+ 107   1          rs485.TX4_buf[1] = 0x17;
+ 108   1      
+ 109   1          rs485.TX4_buf[2] = temp.temp_value1;
+ 110   1          rs485.TX4_buf[3] = temp.temp_value2;
+ 111   1          rs485.TX4_buf[4] = temp.temp_value3;
+ 112   1      
+ 113   1          rs485.TX4_buf[5] = level.level1;
+ 114   1          rs485.TX4_buf[6] = level.level2;
+ 115   1          rs485.TX4_buf[7] = level.level3;
+C51 COMPILER V9.60.7.0   MODBUS_RTU                                                        02/27/2025 14:45:17 PAGE 3   
 
- 116   2              rs485.TX4_buf[15] = 0;
- 117   2          }else
- 118   1          {
- 119   2              rs485.TX4_buf[15] = 1;
- 120   2          }
- 121   1          
- 122   1          rs485.TX4_send_bytelength = 16;
- 123   1          S4CON |= S4TI;             
- 124   1      }
- 125          
- 126          void wk06_params_send( void )
- 127          {
- 128   1          rs485.TX4_buf[0] = 0x51;
- 129   1          rs485.TX4_buf[1] = 0x16;
- 130   1          rs485.TX4_buf[2] = dc_24v.fan_level;
- 131   1          rs485.TX4_buf[3] = dc_24v.stir_run_time;
- 132   1          rs485.TX4_buf[4] = dc_24v.stir_wait_time;
- 133   1          rs485.TX4_buf[5] = dc_24v.cir_run_time;
- 134   1          rs485.TX4_buf[6] = dc_24v.cir_wait_time;
- 135   1      
- 136   1      
- 137   1          rs485.TX4_buf[7] = temp.temp_alarm_value1;
- 138   1          rs485.TX4_buf[8] = temp.temp_alarm_value2;
- 139   1          rs485.TX4_buf[9] = temp.temp_alarm_value3;
- 140   1      
- 141   1          rs485.TX4_buf[10] = level.level_info;
- 142   1      
- 143   1          rs485.TX4_send_bytelength = 11;
- 144   1          S4CON |= S4TI;
- 145   1      }
+ 116   1          rs485.TX4_buf[8] = level.level4;
+ 117   1          rs485.TX4_buf[9] = level.level5;
+ 118   1          rs485.TX4_buf[10] = level.level6;
+ 119   1          rs485.TX4_buf[11] = level.level7;
+ 120   1          rs485.TX4_buf[12] = level.level8;
+ 121   1          rs485.TX4_buf[13] = level.level9;
+ 122   1          rs485.TX4_buf[14] = level.level10;
+ 123   1          if ( IN_24V == 1 )
+ 124   1          {
+ 125   2              rs485.TX4_buf[15] = 0;
+ 126   2          }else
+ 127   1          {
+ 128   2              rs485.TX4_buf[15] = 1;
+ 129   2          }
+ 130   1          
+ 131   1          rs485.TX4_send_bytelength = 16;
+ 132   1          S4CON |= S4TI;             
+ 133   1      }
+ 134          
+ 135          void wk06_params_send( void )
+ 136          {
+ 137   1          rs485.TX4_buf[0] = 0x51;
+ 138   1          rs485.TX4_buf[1] = 0x16;
+ 139   1          rs485.TX4_buf[2] = dc_24v.fan_level;
+ 140   1          rs485.TX4_buf[3] = dc_24v.stir_run_time;
+ 141   1          rs485.TX4_buf[4] = dc_24v.stir_wait_time;
+ 142   1          rs485.TX4_buf[5] = dc_24v.cir_run_time;
+ 143   1          rs485.TX4_buf[6] = dc_24v.cir_wait_time;
+ 144   1      
+ 145   1      
+ 146   1          rs485.TX4_buf[7] = temp.temp_alarm_value1;
+ 147   1          rs485.TX4_buf[8] = temp.temp_alarm_value2;
+ 148   1          rs485.TX4_buf[9] = temp.temp_alarm_value3;
+ 149   1      
+ 150   1          rs485.TX4_buf[10] = level.level_info;
+ 151   1      
+ 152   1          rs485.TX4_send_bytelength = 11;
+ 153   1          S4CON |= S4TI;
+ 154   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    476    ----
+   CODE SIZE        =    494    ----
    CONSTANT SIZE    =   ----    ----
-   XDATA SIZE       =      7    ----
+   XDATA SIZE       =      8    ----
    PDATA SIZE       =   ----    ----
    DATA SIZE        =   ----    ----
    IDATA SIZE       =   ----    ----

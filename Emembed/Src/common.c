@@ -28,16 +28,24 @@ void temp_level_scan( void )
         {
             ac_220.channel3_flag = 1;
         }
-
-        level.level_alarm = L1_L & L2_L &  L3_L & L4_L & L5_L & L6_L & L7_L & L8_L & L9_L & L10_L;
-        if( level.level_alarm == 0 )
+        if( level.buzzer_scan_flag == 1 )
         {
-            level.level_alarm_flag = 1;
-        }else
-        {
-            level.level_alarm_flag = 0;
-            level.level1_alarm_cnt = 0;
+            if((level.level1 != 0x04) || (level.level2 != 0x04) || (level.level3 != 0x04) ||    \
+            (level.level4 != 0x04) || (level.level5 != 0x04) || (level.level6 != 0x04) ||    \
+            (level.level7 != 0x04) || (level.level8 != 0x04) || (level.level9 != 0x04) ||    \
+            (level.level10 != 0x04))
+            {
+                buzzer = 1;
+            }
+            if((level.level1 == 0x04) || (level.level2 == 0x04) || (level.level3 == 0x04) ||    \
+            (level.level4 == 0x04) || (level.level5 == 0x04) || (level.level6 == 0x04) ||    \
+            (level.level7 == 0x04) || (level.level8 == 0x04) || (level.level9 == 0x04) ||    \
+            (level.level10 == 0x04))
+            {
+                buzzer = 0;
+            }
         }
+
         /*          level 1         */
         if(( L1_L == 1 )&&( L1_H == 1 ))
         {
@@ -49,6 +57,7 @@ void temp_level_scan( void )
         {
             level.level1 = 0x02;
             level.level1_alarm_flag = 0;
+            level.level1_alarm_cnt = 0;
         }else if(( L1_L == 0 )&&( L1_H == 0 )&&(level.level1_alarm_flag == 0))
         {
             level.level1 = 0x01;
@@ -66,6 +75,7 @@ void temp_level_scan( void )
         {
             level.level2 = 0x02;
             level.level2_alarm_flag = 0;
+            level.level2_alarm_cnt = 0;
         }else if(( L2_L == 0 )&&( L2_H == 0 )&&(level.level2_alarm_flag == 0))
         {
             level.level2 = 0x01;
@@ -84,6 +94,7 @@ void temp_level_scan( void )
         {
             level.level3 = 0x02;
             level.level3_alarm_flag = 0;
+            level.level3_alarm_cnt = 0;
         }else if(( L3_L == 0 )&&( L3_H == 0 )&&(level.level3_alarm_flag == 0))
         {
             level.level3 = 0x01;
@@ -102,6 +113,7 @@ void temp_level_scan( void )
         {
             level.level4 = 0x02;
             level.level4_alarm_flag = 0;
+            level.level4_alarm_cnt = 0;
         }else if(( L4_L == 0 )&&( L4_H == 0 )&&(level.level4_alarm_flag == 0))
         {
             level.level4 = 0x01;
@@ -120,6 +132,7 @@ void temp_level_scan( void )
         {
             level.level5 = 0x02;
             level.level5_alarm_flag = 0;
+            level.level5_alarm_cnt = 0;
         }else if(( L5_L == 0 )&&( L5_H == 0 )&&(level.level5_alarm_flag == 0))
         {
             level.level5 = 0x01;
@@ -138,6 +151,7 @@ void temp_level_scan( void )
         {
             level.level6 = 0x02;
             level.level6_alarm_flag = 0;
+            level.level6_alarm_cnt = 0;
         }else if(( L6_L == 0 )&&( L6_H == 0 )&&(level.level6_alarm_flag == 0))
         {
             level.level6 = 0x01;
@@ -156,6 +170,7 @@ void temp_level_scan( void )
         {
             level.level7 = 0x02;
             level.level7_alarm_flag = 0;
+            level.level7_alarm_cnt = 0;
         }else if(( L7_L == 0 )&&( L7_H == 0 )&&(level.level7_alarm_flag == 0))
         {
             level.level7 = 0x01;
@@ -174,6 +189,7 @@ void temp_level_scan( void )
         {
             level.level8 = 0x02;
             level.level8_alarm_flag = 0;
+            level.level8_alarm_cnt = 0;
         }else if(( L8_L == 0 )&&( L8_H == 0 )&&(level.level8_alarm_flag == 0))
         {
             level.level8 = 0x01;
@@ -192,6 +208,7 @@ void temp_level_scan( void )
         {
             level.level9 = 0x02;
             level.level9_alarm_flag = 0;
+            level.level9_alarm_cnt = 0;
         }else if(( L9_L == 0 )&&( L9_H == 0 )&&(level.level9_alarm_flag == 0))
         {
             level.level9 = 0x01;
@@ -200,21 +217,22 @@ void temp_level_scan( void )
         }
 
         /*          level 10         */
-        if(( L10_L == 1 )&&( L10_H == 1 ))
+        if(( L10_L == 1 )&&( L10_H == 1 )&&(level.level10_alarm_flag == 0))
         {
             level.level10 = 0x03;
-            level.level10_alarm_flag = 0;
-            level.level10_alarm_cnt = 0;
+            level.level10_alarm_flag = 1;
+            level.level10_alarm_cnt = level.level_info * 100;
     
         }else if(( L10_L == 1 )&&( L10_H == 0 ))
         {
             level.level10 = 0x02;
             level.level10_alarm_flag = 0;
-        }else if(( L10_L == 0 )&&( L10_H == 0 )&&(level.level10_alarm_flag == 0))
+            level.level10_alarm_cnt = 0;
+        }else if(( L10_L == 0 )&&( L10_H == 0 ))
         {
             level.level10 = 0x01;
-            level.level10_alarm_flag = 1;
-            level.level10_alarm_cnt = level.level_info * 100;
+            level.level10_alarm_flag = 0;
+            level.level10_alarm_cnt = 0;
         }
         wk06_statu_send();
         level.level_scan_flag = 0;
@@ -239,6 +257,7 @@ void Tim3_ISR( void ) interrupt 19   //10ms
         if( level.level1_alarm_cnt == 0 )
         {
             level.level1 = 0x04;
+            // buzzer = 0;
         }
     }
     /*          level 2         */
@@ -248,6 +267,7 @@ void Tim3_ISR( void ) interrupt 19   //10ms
         if( level.level2_alarm_cnt == 0 )
         {
             level.level2 = 0x04;
+            // buzzer = 0;
         }
     }
 
@@ -258,6 +278,7 @@ void Tim3_ISR( void ) interrupt 19   //10ms
         if( level.level3_alarm_cnt == 0 )
         {
             level.level3 = 0x04;
+            // buzzer = 0;
         }
     }
     /*          level 4         */
@@ -267,6 +288,7 @@ void Tim3_ISR( void ) interrupt 19   //10ms
         if( level.level4_alarm_cnt == 0 )
         {
             level.level4 = 0x04;
+            // buzzer = 0;
         }
     }
 
@@ -277,6 +299,7 @@ void Tim3_ISR( void ) interrupt 19   //10ms
         if( level.level5_alarm_cnt == 0 )
         {
             level.level5 = 0x04;
+            // buzzer = 0;
         }
     }
     /*          level 6         */
@@ -286,6 +309,7 @@ void Tim3_ISR( void ) interrupt 19   //10ms
         if( level.level6_alarm_cnt == 0 )
         {
             level.level6 = 0x04;
+            // buzzer = 0;
         }
     }
 
@@ -296,6 +320,7 @@ void Tim3_ISR( void ) interrupt 19   //10ms
         if( level.level7_alarm_cnt == 0 )
         {
             level.level7 = 0x04;
+            // buzzer = 0;
         }
     }
     /*          level 8         */
@@ -305,6 +330,7 @@ void Tim3_ISR( void ) interrupt 19   //10ms
         if( level.level8_alarm_cnt == 0 )
         {
             level.level8 = 0x04;
+            // buzzer = 0;
         }
     }
 
@@ -315,6 +341,7 @@ void Tim3_ISR( void ) interrupt 19   //10ms
         if( level.level9_alarm_cnt == 0 )
         {
             level.level9 = 0x04;
+            // buzzer = 0;
         }
     }
     /*          level 10         */
@@ -324,6 +351,7 @@ void Tim3_ISR( void ) interrupt 19   //10ms
         if( level.level10_alarm_cnt == 0 )
         {
             level.level10 = 0x04;
+            // buzzer = 0;
         }
     }
 

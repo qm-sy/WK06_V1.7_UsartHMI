@@ -1,11 +1,11 @@
-C51 COMPILER V9.60.7.0   POWER_CRL                                                         02/26/2025 22:52:46 PAGE 1   
+C51 COMPILER V9.60.7.0   POWER_CRL                                                         02/27/2025 14:45:16 PAGE 1   
 
 
 C51 COMPILER V9.60.7.0, COMPILATION OF MODULE POWER_CRL
 OBJECT MODULE PLACED IN ..\Output\hex\power_crl.obj
-COMPILER INVOKED BY: D:\APP\Keil_STM32\C51\BIN\C51.EXE ..\BSP\Src\power_crl.c LARGE OPTIMIZE(8,SPEED) BROWSE INCDIR(..\B
-                    -SP\Inc;..\Core\Inc;..\Drivers;..\Emembed\Inc;..\Middlewares;..\SYSTEM\Inc) DEBUG OBJECTEXTEND PRINT(.\Listings\power_crl
-                    -.lst) OBJECT(..\Output\hex\power_crl.obj)
+COMPILER INVOKED BY: D:\APP\Keil_v5\C51\BIN\C51.EXE ..\BSP\Src\power_crl.c LARGE OPTIMIZE(8,SPEED) BROWSE INCDIR(..\BSP\
+                    -Inc;..\Core\Inc;..\Drivers;..\Emembed\Inc;..\Middlewares;..\SYSTEM\Inc) DEBUG OBJECTEXTEND PRINT(.\Listings\power_crl.ls
+                    -t) OBJECT(..\Output\hex\power_crl.obj)
 
 line level    source
 
@@ -62,7 +62,7 @@ line level    source
   51   1          if( ac_220.zero_flag == 1 )
   52   1          {
   53   2              ac_220.zero_flag = 0;
-C51 COMPILER V9.60.7.0   POWER_CRL                                                         02/26/2025 22:52:46 PAGE 2   
+C51 COMPILER V9.60.7.0   POWER_CRL                                                         02/27/2025 14:45:16 PAGE 2   
 
   54   2              if(ac_220.channel1_flag == 1)
   55   2              {
@@ -126,7 +126,7 @@ line level    source
  112   1          {
  113   2              DC_24V_2 = 1;
  114   2              dc_24v.cir_run_cnt = dc_24v.cir_run_time * 100;
-C51 COMPILER V9.60.7.0   POWER_CRL                                                         02/26/2025 22:52:46 PAGE 3   
+C51 COMPILER V9.60.7.0   POWER_CRL                                                         02/27/2025 14:45:16 PAGE 3   
 
  115   2              dc_24v.cir_wait_cnt = dc_24v.cir_wait_time * 100;
  116   2          }else

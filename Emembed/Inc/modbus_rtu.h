@@ -19,6 +19,7 @@ typedef struct
     uint8_t  send_value_addr;            //DATA1 H 位置
     uint8_t  rcv_value_addr;             //DATA1 H 位置
     uint16_t start_addr;                 //查询起始位置
+    uint8_t scan_allow_flag;
 }MODBIS_INFO;
 
 

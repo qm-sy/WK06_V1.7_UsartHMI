@@ -1,11 +1,11 @@
-C51 COMPILER V9.60.7.0   MAIN                                                              02/26/2025 22:52:46 PAGE 1   
+C51 COMPILER V9.60.7.0   MAIN                                                              02/27/2025 14:45:16 PAGE 1   
 
 
 C51 COMPILER V9.60.7.0, COMPILATION OF MODULE MAIN
 OBJECT MODULE PLACED IN ..\Output\hex\main.obj
-COMPILER INVOKED BY: D:\APP\Keil_STM32\C51\BIN\C51.EXE ..\Core\Src\main.c LARGE OPTIMIZE(8,SPEED) BROWSE INCDIR(..\BSP\I
-                    -nc;..\Core\Inc;..\Drivers;..\Emembed\Inc;..\Middlewares;..\SYSTEM\Inc) DEBUG OBJECTEXTEND PRINT(.\Listings\main.lst) OBJ
-                    -ECT(..\Output\hex\main.obj)
+COMPILER INVOKED BY: D:\APP\Keil_v5\C51\BIN\C51.EXE ..\Core\Src\main.c LARGE OPTIMIZE(8,SPEED) BROWSE INCDIR(..\BSP\Inc;
+                    -..\Core\Inc;..\Drivers;..\Emembed\Inc;..\Middlewares;..\SYSTEM\Inc) DEBUG OBJECTEXTEND PRINT(.\Listings\main.lst) OBJECT
+                    -(..\Output\hex\main.obj)
 
 line level    source
 
@@ -17,53 +17,57 @@ line level    source
    6   1          level.level_scan_flag = 0;
    7   1          dc_24v.stir = 0;
    8   1          dc_24v.cir = 0;
-   9   1          GPIO_Init();
-  10   1      
-  11   1          /*  温度控制  */
-  12   1          ADC_Init();
-  13   1      
-  14   1          /*  4路220输出控制  */
-  15   1          Power_Statu_Init();
-  16   1          INT0_Init();
-  17   1          Timer1_Init();
-  18   1      
-  19   1          /*  PWM控制  */
-  20   1          PWM_Init();
-  21   1      
-  22   1          /*  modbus控制  */
-  23   1          Uart4_Send_Statu_Init();
-  24   1          Timer0_Init();
-  25   1          Uart4_Init();
-  26   1      
-  27   1          /*  调试使用  */
-  28   1          Uart1_Init();
-  29   1      
-  30   1          Timer3Init();
+   9   1          modbus.scan_allow_flag = 0;
+  10   1          level.buzzer_scan_flag = 1;
+  11   1          GPIO_Init();
+  12   1      
+  13   1          /*  温度控制  */
+  14   1          ADC_Init();
+  15   1      
+  16   1          /*  4路220输出控制  */
+  17   1          Power_Statu_Init();
+  18   1          INT0_Init();
+  19   1          Timer1_Init();
+  20   1      
+  21   1          /*  PWM控制  */
+  22   1          PWM_Init();
+  23   1      
+  24   1          /*  modbus控制  */
+  25   1          Uart4_Send_Statu_Init();
+  26   1          Timer0_Init();
+  27   1          Uart4_Init();
+  28   1      
+  29   1          /*  调试使用  */
+  30   1          Uart1_Init();
   31   1      
-  32   1          EA = 1;
+  32   1          Timer3Init();
   33   1      
-  34   1          eeprom_statu_judge();
-  35   1          printf("======== code start ========\r\n"); 
-  36   1      
-  37   1          while (1)
-  38   1          { 
-  39   2              Modbus_Event();
-  40   2              temp_level_scan();
-  41   2          }
-  42   1          
-  43   1      }
+  34   1          EA = 1;
+  35   1      
+  36   1          eeprom_statu_judge();
+  37   1          printf("======== code start ========\r\n"); 
+  38   1      
+  39   1          while (1)
+  40   1          { 
+  41   2              Modbus_Event();
+  42   2              if( modbus.scan_allow_flag == 1 )
+  43   2              {
+  44   3                  temp_level_scan();
+  45   3              }
+  46   2          }
+  47   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =     71    ----
+   CODE SIZE        =     87    ----
    CONSTANT SIZE    =     31    ----
    XDATA SIZE       =   ----    ----
+C51 COMPILER V9.60.7.0   MAIN                                                              02/27/2025 14:45:16 PAGE 2   
+
    PDATA SIZE       =   ----    ----
    DATA SIZE        =   ----    ----
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----
-C51 COMPILER V9.60.7.0   MAIN                                                              02/26/2025 22:52:46 PAGE 2   
-
 END OF MODULE INFORMATION.
 
 

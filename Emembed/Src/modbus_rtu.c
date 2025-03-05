@@ -35,6 +35,7 @@ void Modbus_Event( void )
                     
                 case 0x16:
                     wk06_params_send();                                 //开始发送
+                    modbus.scan_allow_flag = 1;
                     break;
 
                 case 0xA0:
@@ -46,7 +47,15 @@ void Modbus_Event( void )
                     break;
 
                 case 0xA2:
-                    buzzer = rs485.RX4_buf[2];
+                    if(rs485.RX4_buf[2] == 0x01)
+                    { 
+                        level.buzzer_scan_flag = 1;
+                    }else
+                    {
+                        level.buzzer_scan_flag = 0;
+                        buzzer = 1;
+                    }
+                    
                     break;  
 
                 case 0xA3:  

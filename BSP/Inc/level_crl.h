@@ -40,7 +40,7 @@ typedef struct
     uint16_t level8_alarm_cnt;
     uint16_t level9_alarm_cnt;
     uint16_t level10_alarm_cnt;
-
+    uint8_t  buzzer_scan_flag;
 }LEVEL;
 
 extern LEVEL level;

@@ -1,11 +1,11 @@
-C51 COMPILER V9.60.7.0   EEPROM_CRL                                                        02/26/2025 22:52:46 PAGE 1   
+C51 COMPILER V9.60.7.0   EEPROM_CRL                                                        02/27/2025 14:45:16 PAGE 1   
 
 
 C51 COMPILER V9.60.7.0, COMPILATION OF MODULE EEPROM_CRL
 OBJECT MODULE PLACED IN ..\Output\hex\eeprom_crl.obj
-COMPILER INVOKED BY: D:\APP\Keil_STM32\C51\BIN\C51.EXE ..\BSP\Src\eeprom_crl.c LARGE OPTIMIZE(8,SPEED) BROWSE INCDIR(..\
-                    -BSP\Inc;..\Core\Inc;..\Drivers;..\Emembed\Inc;..\Middlewares;..\SYSTEM\Inc) DEBUG OBJECTEXTEND PRINT(.\Listings\eeprom_c
-                    -rl.lst) OBJECT(..\Output\hex\eeprom_crl.obj)
+COMPILER INVOKED BY: D:\APP\Keil_v5\C51\BIN\C51.EXE ..\BSP\Src\eeprom_crl.c LARGE OPTIMIZE(8,SPEED) BROWSE INCDIR(..\BSP
+                    -\Inc;..\Core\Inc;..\Drivers;..\Emembed\Inc;..\Middlewares;..\SYSTEM\Inc) DEBUG OBJECTEXTEND PRINT(.\Listings\eeprom_crl.
+                    -lst) OBJECT(..\Output\hex\eeprom_crl.obj)
 
 line level    source
 
@@ -62,7 +62,7 @@ line level    source
   51   1          ISP_Write(PWM_ADDR_EEPROM,eeprom.pwm_info);
   52   1      
   53   1      
-C51 COMPILER V9.60.7.0   EEPROM_CRL                                                        02/26/2025 22:52:46 PAGE 2   
+C51 COMPILER V9.60.7.0   EEPROM_CRL                                                        02/27/2025 14:45:16 PAGE 2   
 
   54   1          ISP_Write(LED_ADDR_EEPROM,eeprom.led_info);
   55   1      
@@ -126,7 +126,7 @@ line level    source
  113   1          DC_24V_out2(eeprom.cir_info);
  114   1      
  115   1          eeprom.stir_run_time = ISP_Read(STIR_RUN);
-C51 COMPILER V9.60.7.0   EEPROM_CRL                                                        02/26/2025 22:52:46 PAGE 3   
+C51 COMPILER V9.60.7.0   EEPROM_CRL                                                        02/27/2025 14:45:16 PAGE 3   
 
  116   1          dc_24v.stir_run_time = eeprom.stir_run_time;
  117   1          eeprom.stir_wait_time = ISP_Read(STIR_WAIT);
